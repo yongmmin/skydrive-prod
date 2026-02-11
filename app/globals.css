@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  font-family: var(--font-nunito), sans-serif;
+}
+
+h1, h2, h3, .title {
+  font-family: var(--font-bungee), sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.main-shell {
+  @apply mx-auto flex min-h-screen max-w-6xl flex-col gap-12 px-6 py-12;
+}
+
+.section-card {
+  @apply rounded-[36px] border border-white/70 bg-white/80 p-8 shadow-soft backdrop-blur;
+}
+
+.badge {
+  @apply inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/90 px-4 py-1 text-[11px] font-extrabold uppercase tracking-[0.25em] text-slate-500;
+}
+
+.coastal-card {
+  @apply rounded-[32px] border border-white/70 bg-white/85 p-6 shadow-soft backdrop-blur;
+}
+
+.coastal-chip {
+  @apply rounded-full border border-white/70 bg-white/90 px-4 py-2 text-xs font-bold text-slate-600;
+}
+
+.coastal-button {
+  @apply rounded-full border border-white/80 bg-white px-6 py-3 text-sm font-extrabold text-slate-800 shadow-soft transition hover:-translate-y-0.5;
+}
+
+.coastal-button-soft {
+  @apply rounded-full border border-white/80 bg-white/80 px-6 py-3 text-sm font-bold text-slate-700 shadow-soft transition hover:-translate-y-0.5 hover:bg-white;
+}
+
+.coastal-input {
+  @apply w-full rounded-2xl border border-white/70 bg-white/90 px-4 py-3 text-sm text-slate-700 placeholder:text-slate-400 focus:border-sky-200 focus:outline-none;
+}
+
+.coastal-ad {
+  @apply rounded-2xl border border-white/70 bg-white/85 px-4 py-3 text-xs font-bold text-slate-500;
+}
+
+.page-fade {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: opacity 260ms ease, transform 260ms ease;
+}
+
+.page-fade.is-exiting {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.neon-glow {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18), 0 0 24px rgba(124, 92, 255, 0.35), 0 0 40px rgba(0, 214, 255, 0.25);
+}
+
+.neon-glow-soft {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 0 18px rgba(255, 146, 194, 0.25);
+}
+
+.grid-drift {
+  animation: gridDrift 16s linear infinite;
+  background-position: 0 0, 0 0;
+}
+
+.pill {
+  @apply inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.3em] text-white/80;
+}
+
+.icon-bubble {
+  @apply flex h-12 w-12 items-center justify-center rounded-2xl border border-white/20 bg-white/10 text-base font-extrabold text-white;
+}
+
+.card-glass {
+  @apply rounded-[28px] border border-white/15 bg-white/10 p-6 shadow-soft backdrop-blur;
+}
+
+.brand-gradient {
+  background: radial-gradient(circle at 20% 20%, rgba(124, 92, 255, 0.25), transparent 35%),
+    radial-gradient(circle at 80% 10%, rgba(0, 214, 255, 0.25), transparent 35%),
+    radial-gradient(circle at 50% 60%, rgba(255, 146, 194, 0.2), transparent 40%),
+    linear-gradient(135deg, #0b0d14 0%, #11182a 50%, #0b0d14 100%);
+}
+
+.hud-line {
+  @apply rounded-full border border-white/30 bg-white/10 px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.3em] text-white/70;
+}
+
+.stat-pill {
+  @apply rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs font-bold text-white/80;
+}
+
+.glow-button {
+  position: relative;
+}
+
+.glow-button::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 9999px;
+  background: linear-gradient(120deg, rgba(124, 92, 255, 0.6), rgba(0, 214, 255, 0.5), rgba(255, 146, 194, 0.5));
+  opacity: 0;
+  filter: blur(10px);
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.glow-button:hover::after {
+  opacity: 0.8;
+}
+
+@keyframes gridDrift {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 200px 160px, -200px -160px; }
+}
+
+@keyframes windSwipe {
+  0% { transform: translateX(-20%); opacity: 0.1; }
+  50% { opacity: 0.25; }
+  100% { transform: translateX(20%); opacity: 0; }
+}
+
+.wind-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.wind-lines::before,
+.wind-lines::after {
+  content: \"\";
+  position: absolute;
+  left: -20%;
+  width: 140%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+  animation: windSwipe 1.8s linear infinite;
+}
+
+.wind-lines::after {
+  top: 60%;
+  animation-duration: 2.3s;
+  animation-delay: 0.4s;
+}
