@@ -13,11 +13,17 @@ const SLOT_BY_LABEL: Record<string, string | undefined> = {
   Rank: process.env.NEXT_PUBLIC_ADSENSE_SLOT_RANK,
 };
 
-export default function AdSlot({ label }: { label: string }) {
+type AdSlotProps = {
+  label: string;
+  placement?: "inline" | "side";
+};
+
+export default function AdSlot({ label, placement = "inline" }: AdSlotProps) {
   const adRef = useRef<HTMLModElement | null>(null);
   const client = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
   const slot = useMemo(() => SLOT_BY_LABEL[label], [label]);
   const enabled = Boolean(client && slot);
+  const isSide = placement === "side";
 
   useEffect(() => {
     if (!enabled || !adRef.current) return;
@@ -35,14 +41,14 @@ export default function AdSlot({ label }: { label: string }) {
   }
 
   return (
-    <div className="coastal-ad">
+    <div className={`coastal-ad ${isSide ? "coastal-ad-side" : "coastal-ad-inline"}`}>
       <ins
         ref={adRef}
-        className="adsbygoogle block min-h-[96px] w-full"
+        className={`adsbygoogle block w-full ${isSide ? "min-h-[600px]" : "min-h-[96px]"}`}
         style={{ display: "block" }}
         data-ad-client={client}
         data-ad-slot={slot}
-        data-ad-format="auto"
+        data-ad-format={isSide ? "vertical" : "auto"}
         data-full-width-responsive="true"
       />
     </div>

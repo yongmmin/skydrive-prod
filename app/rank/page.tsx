@@ -44,7 +44,7 @@ export default function RankPage() {
   const [lang, setLang] = useState<"ko" | "en">("en");
   const [rows, setRows] = useState<LocalScoreRow[]>([]);
   const [loading, setLoading] = useState(true);
-  const [source, setSource] = useState<"server" | "demo">("demo");
+  const [source, setSource] = useState<"server" | "demo">("server");
   const [podiumAnimate, setPodiumAnimate] = useState(false);
   const t =
     lang === "ko"
@@ -100,12 +100,22 @@ export default function RankPage() {
     };
   }, []);
 
-  useEffect(() => {
-    const t = window.setTimeout(() => setPodiumAnimate(true), 120);
-    return () => window.clearTimeout(t);
-  }, [rows.length]);
+  const visibleRows = useMemo(() => {
+    if (loading) return [];
+    if (rows.length > 0) return rows;
+    return source === "demo" ? demoRows : [];
+  }, [loading, rows, source]);
 
-  const visibleRows = useMemo(() => (rows.length > 0 ? rows : demoRows), [rows]);
+  useEffect(() => {
+    if (loading || visibleRows.length === 0) {
+      setPodiumAnimate(false);
+      return;
+    }
+    setPodiumAnimate(false);
+    const t = window.setTimeout(() => setPodiumAnimate(true), 80);
+    return () => window.clearTimeout(t);
+  }, [loading, visibleRows.length]);
+
   const topThree = useMemo(() => visibleRows.slice(0, 3), [visibleRows]);
   const rankRows = useMemo(() => visibleRows.slice(0, 10), [visibleRows]);
   const toPilotName = (anonId: string, rank: number) =>
@@ -119,7 +129,7 @@ export default function RankPage() {
     });
 
   return (
-    <main className="min-h-screen bg-[#0b0d14] text-white">
+    <main className="flex min-h-screen flex-col bg-[#0b0d14] text-white">
       <div className="pointer-events-none fixed bottom-10 left-8 top-28 z-30 hidden 2xl:flex items-center">
         <div className="pointer-events-auto w-[150px]">
           <AdSlot label="Rank" placement="side" />
@@ -159,8 +169,8 @@ export default function RankPage() {
         </div>
       </header>
 
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
+      <div className="relative isolate flex-1 overflow-hidden">
+        <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-1/2 top-1/2 h-[720px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/10 blur-[160px]" />
           <div className="absolute left-10 top-10 h-64 w-64 rounded-full bg-purple-500/15 blur-3xl" />
           <div className="absolute right-0 bottom-10 h-72 w-72 rounded-full bg-pink-400/12 blur-3xl" />
@@ -316,7 +326,7 @@ export default function RankPage() {
             </div>
           </div>
         </div>
-      </section>
+      </div>
       <style jsx>{`
         .spotlight {
           position: absolute;

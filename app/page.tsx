@@ -26,7 +26,7 @@ export default function LandingPage() {
         };
 
   return (
-    <main className="min-h-screen bg-[#0b0d14] text-white">
+    <main className="flex min-h-screen flex-col bg-[#0b0d14] text-white">
       <div className="pointer-events-none fixed bottom-10 left-8 top-28 z-30 hidden 2xl:flex items-center">
         <div className="pointer-events-auto w-[150px]">
           <AdSlot label="Landing" placement="side" />
@@ -66,8 +66,8 @@ export default function LandingPage() {
         </div>
       </header>
 
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
+      <div className="relative isolate flex-1 overflow-hidden">
+        <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-1/2 top-1/2 h-[720px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400/10 blur-[160px]" />
           <div className="absolute left-10 top-10 h-64 w-64 rounded-full bg-purple-500/15 blur-3xl" />
           <div className="absolute right-0 bottom-10 h-72 w-72 rounded-full bg-pink-400/12 blur-3xl" />
@@ -81,24 +81,26 @@ export default function LandingPage() {
           />
         </div>
 
-        <div className="relative mx-auto flex min-h-[70vh] max-w-4xl flex-col items-center justify-center gap-8 px-4 py-20 text-center sm:px-6">
-          <div className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.35em] text-white/70">
-            {t.badge}
+        <section className="relative">
+          <div className="mx-auto flex min-h-[70vh] max-w-4xl flex-col items-center justify-center gap-8 px-4 py-20 text-center sm:px-6">
+            <div className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.35em] text-white/70">
+              {t.badge}
+            </div>
+            <h1 className="title text-3xl text-white sm:text-5xl">{t.title}</h1>
+            <p className="max-w-2xl text-base text-white/70">
+              {t.desc}
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <Link href="/play" className="rounded-full bg-white px-6 py-3 text-sm font-extrabold text-slate-900 shadow-soft transition hover:-translate-y-0.5">
+                {t.play}
+              </Link>
+              <Link href="/rank" className="rounded-full border border-white/30 bg-white/10 px-6 py-3 text-sm font-bold text-white shadow-soft transition hover:-translate-y-0.5">
+                {t.rank}
+              </Link>
+            </div>
           </div>
-          <h1 className="title text-3xl text-white sm:text-5xl">{t.title}</h1>
-          <p className="text-base text-white/70 max-w-2xl">
-            {t.desc}
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <Link href="/play" className="rounded-full bg-white px-6 py-3 text-sm font-extrabold text-slate-900 shadow-soft transition hover:-translate-y-0.5">
-              {t.play}
-            </Link>
-            <Link href="/rank" className="rounded-full border border-white/30 bg-white/10 px-6 py-3 text-sm font-bold text-white shadow-soft transition hover:-translate-y-0.5">
-              {t.rank}
-            </Link>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </main>
   );
 }
