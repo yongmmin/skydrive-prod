@@ -210,7 +210,7 @@ export default function PlayPage() {
       return { forward, up, right };
     };
     const getCameraAxes = () => {
-      arCamera.computeWorldMatrix(true);
+      arCamera.computeWorldMatrix();
       const world = arCamera.getWorldMatrix();
       const forward = BABYLON.Vector3.TransformNormal(BABYLON.Axis.Z, world).normalize();
       const up = BABYLON.Vector3.TransformNormal(BABYLON.Axis.Y, world).normalize();

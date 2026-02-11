@@ -9,3 +9,7 @@ yarn-debug.log*
 yarn-error.log*
 
 AGENTS.md
+
+.env.*
+
+.vscode
