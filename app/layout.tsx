@@ -30,6 +30,11 @@ export const metadata: Metadata = {
     template: "%s | SkyDrive",
   },
   description: "Arcade sky-flight game with live leaderboard.",
+  icons: {
+    icon: "/planes/plane-red.png",
+    shortcut: "/planes/plane-red.png",
+    apple: "/planes/plane-red.png",
+  },
   alternates: {
     canonical: "/",
   },

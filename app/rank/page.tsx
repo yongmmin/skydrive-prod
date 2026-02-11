@@ -120,10 +120,21 @@ export default function RankPage() {
 
   return (
     <main className="min-h-screen bg-[#0b0d14] text-white">
+      <div className="pointer-events-none fixed bottom-10 left-8 top-28 z-30 hidden 2xl:flex items-center">
+        <div className="pointer-events-auto w-[150px]">
+          <AdSlot label="Rank" placement="side" />
+        </div>
+      </div>
+      <div className="pointer-events-none fixed bottom-10 right-8 top-28 z-30 hidden 2xl:flex items-center">
+        <div className="pointer-events-auto w-[150px]">
+          <AdSlot label="Rank" placement="side" />
+        </div>
+      </div>
+
       <header className="sticky top-0 z-40 border-b border-white/10 bg-[#0b0d14]/80 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <span className="text-sm font-extrabold uppercase tracking-[0.35em] text-white/70">SkyDrive</span>
-          <div className="flex items-center gap-3">
+          <div className="flex w-full flex-wrap items-center justify-end gap-2 sm:w-auto sm:gap-3">
             <div className="rounded-full border border-white/20 bg-white/10 p-1">
               <button
                 onClick={() => setLang("ko")}
@@ -163,21 +174,21 @@ export default function RankPage() {
           />
         </div>
 
-        <div className="relative mx-auto flex max-w-6xl flex-col gap-6 px-6 py-8">
+        <div className="relative mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6">
           <div className="space-y-2">
             <p className="text-xs font-extrabold uppercase tracking-[0.35em] text-white/60">{t.heroEyebrow}</p>
-            <h1 className="title text-4xl text-white">{t.heroTitle}</h1>
+            <h1 className="title text-3xl text-white sm:text-4xl">{t.heroTitle}</h1>
           </div>
 
           <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
             <div className="rounded-[28px] border border-white/20 bg-gradient-to-b from-[#1f3556]/80 to-[#172437]/70 p-4 shadow-soft backdrop-blur">
               <div className="rounded-2xl border border-white/15 bg-white/5 p-4">
                 <div className="text-[11px] font-extrabold uppercase tracking-[0.28em] text-cyan-100/75">{t.panelTitle}</div>
-                <div className="mt-1 flex items-center justify-between gap-3">
+                <div className="mt-1 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div className="text-lg font-black text-white">{source === "server" ? t.panelStatServer : t.panelStatDemo}</div>
                   <Link
                     href="/play"
-                    className="inline-flex shrink-0 items-center justify-center rounded-xl bg-white px-4 py-2 text-sm font-extrabold text-slate-900 shadow-soft transition hover:-translate-y-0.5"
+                    className="inline-flex w-full shrink-0 items-center justify-center rounded-xl bg-white px-4 py-2 text-sm font-extrabold text-slate-900 shadow-soft transition hover:-translate-y-0.5 sm:w-auto"
                   >
                     {t.panelBtn}
                   </Link>
@@ -198,7 +209,7 @@ export default function RankPage() {
                       >
                         {i + 1}
                       </div>
-                      <div className="text-base font-bold text-white">{toPilotName(p.anonId, i + 1)}</div>
+                      <div className="max-w-[150px] truncate text-base font-bold text-white sm:max-w-none">{toPilotName(p.anonId, i + 1)}</div>
                     </div>
                     <div className="text-sm font-extrabold text-white/90">{p.score.toLocaleString("en-US")}</div>
                   </div>
@@ -206,7 +217,7 @@ export default function RankPage() {
               </div>
             </div>
 
-            <div className="relative overflow-hidden rounded-[28px] border border-white/20 bg-gradient-to-br from-[#6dd2ff]/35 via-[#4eaef2]/30 to-[#2d6eb9]/35 p-6 shadow-soft backdrop-blur">
+            <div className="relative overflow-hidden rounded-[28px] border border-white/20 bg-gradient-to-br from-[#6dd2ff]/35 via-[#4eaef2]/30 to-[#2d6eb9]/35 p-4 shadow-soft backdrop-blur sm:p-6">
               <div className="pointer-events-none absolute -left-10 top-8 h-20 w-28 rounded-full bg-white/35 blur-xl" />
               <div className="pointer-events-none absolute right-6 top-14 h-16 w-24 rounded-full bg-white/30 blur-xl" />
               <div className="pointer-events-none absolute -right-8 bottom-12 h-24 w-28 rounded-full bg-cyan-100/25 blur-xl" />
@@ -253,16 +264,16 @@ export default function RankPage() {
                 ))}
               </div>
               <div className="pointer-events-none absolute bottom-16 left-8 right-8 h-8 rounded-full bg-[#1f3f60]/40 blur-md" />
-              <div className="relative flex items-end justify-center gap-4 pt-3">
+              <div className="relative flex items-end justify-center gap-2 pt-3 sm:gap-4">
                 {[1, 0, 2].map((slot) => {
                   const p = topThree[slot];
-                  const targetHeight = slot === 0 ? 300 : slot === 1 ? 230 : 190;
+                  const targetHeight = slot === 0 ? 250 : slot === 1 ? 200 : 170;
                   const delay = slot === 2 ? 0 : slot === 1 ? 260 : 520; // 3rd -> 2nd -> 1st
                   const podiumBase = slot === 0 ? "bg-[#f3b82b]" : slot === 1 ? "bg-[#a9b4c8]" : "bg-[#de8749]";
                   if (!p) return null;
                   return (
                     <div key={`${p.anonId}-${p.createdAt}-${slot}`} className="flex w-[31%] flex-col items-center">
-                      <div className={`relative mb-2 ${slot === 0 ? "w-40" : "w-32"}`}>
+                      <div className={`relative mb-2 ${slot === 0 ? "w-28 sm:w-40" : "w-24 sm:w-32"}`}>
                         <div className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.45),transparent_70%)] blur-sm" />
                         <Image
                           src={podiumPlanes[slot] ?? podiumPlanes[0]}
@@ -306,10 +317,6 @@ export default function RankPage() {
           </div>
         </div>
       </section>
-
-      <div className="mx-auto max-w-6xl px-6 pb-16">
-        <AdSlot label="Rank" />
-      </div>
       <style jsx>{`
         .spotlight {
           position: absolute;

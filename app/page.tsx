@@ -27,10 +27,21 @@ export default function LandingPage() {
 
   return (
     <main className="min-h-screen bg-[#0b0d14] text-white">
+      <div className="pointer-events-none fixed bottom-10 left-8 top-28 z-30 hidden 2xl:flex items-center">
+        <div className="pointer-events-auto w-[150px]">
+          <AdSlot label="Landing" placement="side" />
+        </div>
+      </div>
+      <div className="pointer-events-none fixed bottom-10 right-8 top-28 z-30 hidden 2xl:flex items-center">
+        <div className="pointer-events-auto w-[150px]">
+          <AdSlot label="Landing" placement="side" />
+        </div>
+      </div>
+
       <header className="sticky top-0 z-40 border-b border-white/10 bg-[#0b0d14]/80 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <span className="text-sm font-extrabold uppercase tracking-[0.35em] text-white/70">SkyDrive</span>
-          <div className="flex items-center gap-3">
+          <div className="flex w-full flex-wrap items-center justify-end gap-2 sm:w-auto sm:gap-3">
             <div className="rounded-full border border-white/20 bg-white/10 p-1">
               <button
                 onClick={() => setLang("ko")}
@@ -70,11 +81,11 @@ export default function LandingPage() {
           />
         </div>
 
-        <div className="relative mx-auto flex min-h-[70vh] max-w-4xl flex-col items-center justify-center gap-8 px-6 py-20 text-center">
+        <div className="relative mx-auto flex min-h-[70vh] max-w-4xl flex-col items-center justify-center gap-8 px-4 py-20 text-center sm:px-6">
           <div className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.35em] text-white/70">
             {t.badge}
           </div>
-          <h1 className="title text-5xl text-white">{t.title}</h1>
+          <h1 className="title text-3xl text-white sm:text-5xl">{t.title}</h1>
           <p className="text-base text-white/70 max-w-2xl">
             {t.desc}
           </p>
@@ -88,10 +99,6 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-
-      <div className="mx-auto max-w-6xl px-6 pb-16">
-        <AdSlot label="Landing" />
-      </div>
     </main>
   );
 }
